@@ -1,3 +1,16 @@
 /* Keep the photographic hero calm and uniform, without visual gradients. */
 .hero__shade { background: rgba(20, 39, 28, .61); }
 @media (max-width: 760px) { .hero__shade { background: rgba(20, 39, 28, .67); } }
+/* Φωτογραφία ενότητας Γνωριμία */
+.about__image-wrap {
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.about img {
+  height: 440px;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  object-position: center;
+  background: #f3efe6;
+}
