@@ -14,3 +14,11 @@
   object-position: center;
   background: #f3efe6;
 }
+
+/* Διακριτική ενίσχυση του brand στο header. */
+.brand img { width: 54px; height: 54px; }
+@media (max-width: 760px) {
+  .brand { max-width: calc(100% - 62px); }
+  .brand img { width: 46px; height: 46px; }
+  .brand small { font-size: .53rem; letter-spacing: 0; white-space: nowrap; }
+}
