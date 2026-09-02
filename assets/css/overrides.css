@@ -18,13 +18,13 @@
 /* Ενισχυμένη παρουσία του brand στο header. */
 .site-header .nav { width: 100%; max-width: none; padding-inline: 28px; }
 .site-header { height: 112px; }
-.brand img { width: 94px; height: 94px; }
+.brand img { width: 84px; height: auto; }
 .footer__brand span { text-transform: none; }
 @media (max-width: 760px) {
   .site-header { height: 80px; }
   .site-header .nav { padding-inline: 16px; }
   .brand { max-width: calc(100% - 64px); }
-  .brand img { width: 64px; height: 64px; }
+  .brand img { width: 58px; height: auto; }
   .brand small { font-size: .53rem; letter-spacing: 0; white-space: nowrap; }
   .nav__links { top: 80px; }
 }
