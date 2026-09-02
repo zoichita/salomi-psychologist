@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
 /* Keep the photographic hero calm and uniform, without visual gradients. */
 .hero__shade { background: rgba(20, 39, 28, .61); }
 @media (max-width: 760px) { .hero__shade { background: rgba(20, 39, 28, .67); } }
