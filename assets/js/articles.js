@@ -36,7 +36,7 @@
     const republished = article.type === 'republished';
     const source = republished
       ? `Αρχικός συγγραφέας: ${escape(article.original_author)} · Πηγή: ${escape(article.source_name)}`
-      : `Συγγραφέας: ${escape(article.author || 'Σαλώμη Τζιντζινόγλου')}`;
+      : `Συγγραφέας: ${escape(article.author || 'Σαλώμη Τζιντζιλόγλου')}`;
     return `<article class="article-card reveal is-visible"><div class="article-card__top"><span class="article-card__badge article-card__badge--${republished ? 'external' : 'own'}">${republished ? 'Αναδημοσίευση' : 'Δικό μου άρθρο'}</span><span class="article-card__category">${escape(article.category)}</span></div><h2>${escape(article.title)}</h2><p>${escape(article.excerpt)}</p><div class="article-card__meta"><time datetime="${escape(article.published_at)}">${date(article.published_at)}</time><span>${source}</span></div><a class="text-link" href="${base}arthra/article/?slug=${encodeURIComponent(article.slug)}">Διαβάστε το άρθρο <span aria-hidden="true">→</span></a></article>`;
   };
 
@@ -60,7 +60,7 @@
     state(target, 'Φόρτωση άρθρου…', 'Παρακαλώ περιμένετε.');
     const { data: article, error } = await cms.client.from('articles').select('*').eq('slug', slug).eq('status','published').maybeSingle();
     if (error || !article) return state(target, 'Το άρθρο δεν βρέθηκε', 'Ίσως έχει μετακινηθεί ή δεν είναι πλέον δημοσιευμένο.', true);
-    document.title = `${article.title} | Σαλώμη Τζιντζινόγλου`;
+    document.title = `${article.title} | Σαλώμη Τζιντζιλόγλου`;
     const description = document.querySelector('meta[name="description"]'); if (description) description.content = article.excerpt || '';
     const ogTitle = document.querySelector('meta[property="og:title"]'); if (ogTitle) ogTitle.content = article.title;
     const ogDescription = document.querySelector('meta[property="og:description"]'); if (ogDescription) ogDescription.content = article.excerpt || '';
@@ -68,7 +68,7 @@
     const canonical = document.querySelector('link[rel="canonical"]'); if (canonical) canonical.href = location.href;
     const republished = article.type === 'republished';
     const sourceUrl = safeUrl(article.source_url);
-    target.innerHTML = `<a class="text-link article-back" href="${base}arthra/">← Επιστροφή στα Άρθρα</a><article><div class="article-kicker"><span class="article-card__badge article-card__badge--${republished ? 'external' : 'own'}">${republished ? 'Αναδημοσίευση' : 'Δικό μου άρθρο'}</span><span>${escape(article.category)}</span></div><h1>${escape(article.title)}</h1><p class="article-byline">${republished ? `Αρχικός συγγραφέας: ${escape(article.original_author)}` : `Συγγραφέας: ${escape(article.author || 'Σαλώμη Τζιντζινόγλου')}`} · <time datetime="${escape(article.published_at)}">${date(article.published_at)}</time></p>${article.cover_image_url ? `<img class="article-cover" src="${escape(article.cover_image_url)}" alt="Εικόνα για το άρθρο: ${escape(article.title)}">` : ''}<div class="article-body">${window.renderSafeArticleContent(article.content)}</div>${republished ? `<aside class="article-source"><p><strong>Αρχικός συγγραφέας:</strong> ${escape(article.original_author)}</p><p><strong>Πηγή:</strong> ${escape(article.source_name)}</p>${sourceUrl ? `<a class="button button--small" href="${escape(sourceUrl)}" target="_blank" rel="noopener noreferrer">Διαβάστε το πρωτότυπο άρθρο <span aria-hidden="true">↗</span></a>` : ''}</aside>` : ''}</article>`;
+    target.innerHTML = `<a class="text-link article-back" href="${base}arthra/">← Επιστροφή στα Άρθρα</a><article><div class="article-kicker"><span class="article-card__badge article-card__badge--${republished ? 'external' : 'own'}">${republished ? 'Αναδημοσίευση' : 'Δικό μου άρθρο'}</span><span>${escape(article.category)}</span></div><h1>${escape(article.title)}</h1><p class="article-byline">${republished ? `Αρχικός συγγραφέας: ${escape(article.original_author)}` : `Συγγραφέας: ${escape(article.author || 'Σαλώμη Τζιντζιλόγλου')}`} · <time datetime="${escape(article.published_at)}">${date(article.published_at)}</time></p>${article.cover_image_url ? `<img class="article-cover" src="${escape(article.cover_image_url)}" alt="Εικόνα για το άρθρο: ${escape(article.title)}">` : ''}<div class="article-body">${window.renderSafeArticleContent(article.content)}</div>${republished ? `<aside class="article-source"><p><strong>Αρχικός συγγραφέας:</strong> ${escape(article.original_author)}</p><p><strong>Πηγή:</strong> ${escape(article.source_name)}</p>${sourceUrl ? `<a class="button button--small" href="${escape(sourceUrl)}" target="_blank" rel="noopener noreferrer">Διαβάστε το πρωτότυπο άρθρο <span aria-hidden="true">↗</span></a>` : ''}</aside>` : ''}</article>`;
   }
   if (page === 'articles') listing();
   if (page === 'article') detail();
