@@ -23,6 +23,7 @@
 .brand { gap: 18px; }
 .brand img { width: 84px; height: auto; transform: scale(1.55); transform-origin: center; }
 .footer__brand span { text-transform: none; }
+.hero__name span { text-transform: none; letter-spacing: .04em; }
 @media (max-width: 760px) {
   .site-header { height: 80px; }
   .site-header .nav { padding-inline: 16px; }
