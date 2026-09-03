@@ -60,15 +60,44 @@
     state(target, 'Φόρτωση άρθρου…', 'Παρακαλώ περιμένετε.');
     const { data: article, error } = await cms.client.from('articles').select('*').eq('slug', slug).eq('status','published').maybeSingle();
     if (error || !article) return state(target, 'Το άρθρο δεν βρέθηκε', 'Ίσως έχει μετακινηθεί ή δεν είναι πλέον δημοσιευμένο.', true);
+    const canonicalUrl = `https://salomitzintziloglou.gr/arthra/article/?slug=${encodeURIComponent(article.slug)}`;
     document.title = `${article.title} | Σαλώμη Τζιντζιλόγλου`;
     const description = document.querySelector('meta[name="description"]'); if (description) description.content = article.excerpt || '';
     const ogTitle = document.querySelector('meta[property="og:title"]'); if (ogTitle) ogTitle.content = article.title;
     const ogDescription = document.querySelector('meta[property="og:description"]'); if (ogDescription) ogDescription.content = article.excerpt || '';
     const ogImage = document.querySelector('meta[property="og:image"]'); if (ogImage && article.cover_image_url) ogImage.content = article.cover_image_url;
-    const canonical = document.querySelector('link[rel="canonical"]'); if (canonical) canonical.href = location.href;
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) { ogUrl = document.createElement('meta'); ogUrl.setAttribute('property', 'og:url'); document.head.appendChild(ogUrl); }
+    ogUrl.content = canonicalUrl;
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]'); if (twitterTitle) twitterTitle.content = article.title;
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]'); if (twitterDescription) twitterDescription.content = article.excerpt || '';
+    const twitterImage = document.querySelector('meta[name="twitter:image"]'); if (twitterImage && article.cover_image_url) twitterImage.content = article.cover_image_url;
+    const canonicalNodes = document.querySelectorAll('link[rel="canonical"]');
+    let canonical = canonicalNodes[0];
+    canonicalNodes.forEach((node, index) => { if (index > 0) node.remove(); });
+    if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
+    canonical.href = canonicalUrl;
     const republished = article.type === 'republished';
     const sourceUrl = safeUrl(article.source_url);
-    target.innerHTML = `<a class="text-link article-back" href="${base}arthra/">← Επιστροφή στα Άρθρα</a><article><div class="article-kicker"><span class="article-card__badge article-card__badge--${republished ? 'external' : 'own'}">${republished ? 'Αναδημοσίευση' : 'Δικό μου άρθρο'}</span><span>${escape(article.category)}</span></div><h1>${escape(article.title)}</h1><p class="article-byline">${republished ? `Αρχικός συγγραφέας: ${escape(article.original_author)}` : `Συγγραφέας: ${escape(article.author || 'Σαλώμη Τζιντζιλόγλου')}`} · <time datetime="${escape(article.published_at)}">${date(article.published_at)}</time></p>${article.cover_image_url ? `<img class="article-cover" src="${escape(article.cover_image_url)}" alt="Εικόνα για το άρθρο: ${escape(article.title)}">` : ''}<div class="article-body">${window.renderSafeArticleContent(article.content)}</div>${republished ? `<aside class="article-source"><p><strong>Αρχικός συγγραφέας:</strong> ${escape(article.original_author)}</p><p><strong>Πηγή:</strong> ${escape(article.source_name)}</p>${sourceUrl ? `<a class="button button--small" href="${escape(sourceUrl)}" target="_blank" rel="noopener noreferrer">Διαβάστε το πρωτότυπο άρθρο <span aria-hidden="true">↗</span></a>` : ''}</aside>` : ''}</article>`;
+    const articleSchema = {
+      '@context': 'https://schema.org',
+      '@type': republished ? 'Article' : 'BlogPosting',
+      mainEntityOfPage: canonicalUrl,
+      headline: article.title,
+      description: article.excerpt || undefined,
+      datePublished: article.published_at || undefined,
+      dateModified: article.updated_at || article.published_at || undefined,
+      articleSection: article.category || undefined,
+      author: { '@type': 'Person', name: republished ? article.original_author : (article.author || 'Σαλώμη Τζιντζιλόγλου') },
+      publisher: { '@type': 'Person', name: 'Σαλώμη Τζιντζιλόγλου', url: 'https://salomitzintziloglou.gr/' }
+    };
+    if (article.cover_image_url) articleSchema.image = [article.cover_image_url];
+    if (republished && sourceUrl) articleSchema.isBasedOn = sourceUrl;
+    Object.keys(articleSchema).forEach(key => articleSchema[key] === undefined && delete articleSchema[key]);
+    let schemaNode = document.getElementById('article-structured-data');
+    if (!schemaNode) { schemaNode = document.createElement('script'); schemaNode.type = 'application/ld+json'; schemaNode.id = 'article-structured-data'; document.head.appendChild(schemaNode); }
+    schemaNode.textContent = JSON.stringify(articleSchema).replace(/</g, '\\u003c');
+    target.innerHTML = `<a class="text-link article-back" href="${base}arthra/">← Επιστροφή στα Άρθρα</a><article><div class="article-kicker"><span class="article-card__badge article-card__badge--${republished ? 'external' : 'own'}">${republished ? 'Αναδημοσίευση' : 'Δικό μου άρθρο'}</span><span>${escape(article.category)}</span></div><h1>${escape(article.title)}</h1><p class="article-byline">${republished ? `Αρχικός συγγραφέας: ${escape(article.original_author)}` : `Συγγραφέας: ${escape(article.author || 'Σαλώμη Τζιντζιλόγλου')}`} · <time datetime="${escape(article.published_at)}">${date(article.published_at)}</time></p>${article.cover_image_url ? `<img class="article-cover" src="${escape(article.cover_image_url)}" alt="Εικόνα για το άρθρο: ${escape(article.title)}" decoding="async">` : ''}<div class="article-body">${window.renderSafeArticleContent(article.content)}</div>${republished ? `<aside class="article-source"><p><strong>Αρχικός συγγραφέας:</strong> ${escape(article.original_author)}</p><p><strong>Πηγή:</strong> ${escape(article.source_name)}</p>${sourceUrl ? `<a class="button button--small" href="${escape(sourceUrl)}" target="_blank" rel="noopener noreferrer">Διαβάστε το πρωτότυπο άρθρο <span aria-hidden="true">↗</span></a>` : ''}</aside>` : ''}</article>`;
   }
   if (page === 'articles') listing();
   if (page === 'article') detail();

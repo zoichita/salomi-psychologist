@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://salomitzintziloglou.gr/sitemap.xml

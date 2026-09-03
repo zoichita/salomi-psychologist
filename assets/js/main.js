@@ -5,7 +5,7 @@ const currentYear = new Date().getFullYear();
 
 document.querySelector('[data-component="header"]').innerHTML = `
   <header class="site-header"><div class="container nav">
-    <a class="brand" href="${base}" aria-label="Σαλώμη Τζιντζιλόγλου, αρχική"><img src="${base}assets/images/logo-clean.png" alt="Λογότυπο Εξέλιξη"><span>Σαλώμη Τζιντζιλόγλου<small>Ψυχολόγος - Συστημική Ψυχοθεραπεία</small></span></a>
+    <a class="brand" href="${base}" aria-label="Σαλώμη Τζιντζιλόγλου, αρχική"><img src="${base}assets/images/logo-clean.png" alt="Λογότυπο Εξέλιξη" width="48" height="48" decoding="async"><span>Σαλώμη Τζιντζιλόγλου<small>Ψυχολόγος - Συστημική Ψυχοθεραπεία</small></span></a>
     <button class="menu-toggle" type="button" aria-label="Άνοιγμα μενού" aria-expanded="false" aria-controls="main-menu">☰</button>
     <nav id="main-menu" class="nav__links" aria-label="Κύρια πλοήγηση"><a href="${base}" ${page==='home'?'aria-current="page"':''}>Αρχική</a><a href="${base}ypiresies/" ${page==='services'?'aria-current="page"':''}>Υπηρεσίες</a><a href="${base}arthra/" ${page==='articles'?'aria-current="page"':''}>Άρθρα</a><a href="#epikoinonia">Επικοινωνία</a><button class="button button--small" type="button" data-open-modal>Κλείστε Ραντεβού</button></nav>
   </div></header>`;
