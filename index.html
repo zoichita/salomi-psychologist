@@ -10,13 +10,22 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://salomitzintziloglou.gr/#website","url":"https://salomitzintziloglou.gr/","name":"Σαλώμη Τζιντζιλόγλου"},{"@type":"Person","@id":"https://salomitzintziloglou.gr/#salomi-tzintziloglou","name":"Σαλώμη Τζιντζιλόγλου","jobTitle":"Ψυχολόγος - Συστημική Ψυχοθεραπεία","url":"https://salomitzintziloglou.gr/","image":"https://salomitzintziloglou.gr/assets/images/salomi-tzintziloglou.jpeg","telephone":"+302311545915","email":"salomitzinpsy@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Μ. Αλεξάνδρου 80","postalCode":"56224","addressLocality":"Εύοσμος","addressRegion":"Θεσσαλονίκη","addressCountry":"GR"},"sameAs":["https://www.instagram.com/exelixi_therapy/"]},{"@type":"ProfessionalService","@id":"https://salomitzintziloglou.gr/#professional-service","name":"Σαλώμη Τζιντζιλόγλου","url":"https://salomitzintziloglou.gr/","image":"https://salomitzintziloglou.gr/assets/images/salomi-tzintziloglou.jpeg","telephone":"+302311545915","email":"salomitzinpsy@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Μ. Αλεξάνδρου 80","postalCode":"56224","addressLocality":"Εύοσμος","addressRegion":"Θεσσαλονίκη","addressCountry":"GR"},"employee":{"@id":"https://salomitzintziloglou.gr/#salomi-tzintziloglou"}},{"@type":"WebPage","@id":"https://salomitzintziloglou.gr/#webpage","url":"https://salomitzintziloglou.gr/","name":"Ψυχολόγος στον Εύοσμο Θεσσαλονίκης | Σαλώμη Τζιντζιλόγλου","isPartOf":{"@id":"https://salomitzintziloglou.gr/#website"},"about":{"@id":"https://salomitzintziloglou.gr/#professional-service"}}]}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css"><link rel="stylesheet" href="assets/css/overrides.css">
+  <link rel="stylesheet" href="assets/css/styles.css"><link rel="stylesheet" href="assets/css/overrides.css"><link rel="stylesheet" href="assets/css/hero-slideshow.css">
 </head>
 <body data-base="" data-page="home">
   <a class="skip-link" href="#main">Μετάβαση στο περιεχόμενο</a>
   <div data-component="header"></div>
   <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero hero--slideshow" aria-labelledby="hero-title">
+      <div class="hero__slides" aria-hidden="true">
+        <img class="hero__slide is-active" src="assets/images/hero-nature.jpg" alt="" width="1800" height="1200" fetchpriority="high" decoding="async">
+        <img class="hero__slide" data-src="assets/images/hero-slideshow/office.jpg" alt="" width="1536" height="1024" decoding="async">
+        <img class="hero__slide" data-src="assets/images/hero-slideshow/children-room-wide.jpg" alt="" width="1536" height="1024" decoding="async">
+        <img class="hero__slide hero__slide--children-detail" data-src="assets/images/hero-slideshow/children-room-detail.jpg" alt="" width="1536" height="1024" decoding="async">
+        <img class="hero__slide" data-src="assets/images/hero-slideshow/consultation-room.jpg" alt="" width="1536" height="1024" decoding="async">
+        <img class="hero__slide" data-src="assets/images/hero-slideshow/waiting-area.jpg" alt="" width="1536" height="1024" decoding="async">
+        <img class="hero__slide" data-src="assets/images/hero-slideshow/therapy-room.jpg" alt="" width="1536" height="1024" decoding="async">
+      </div>
       <div class="hero__shade"></div>
       <div class="container hero__content reveal">
         <p class="eyebrow eyebrow--light">Ένας χώρος για εσάς</p>
@@ -51,5 +60,5 @@
     </section>
   </main>
   <div data-component="contact"></div><div data-component="footer"></div><div data-component="modal"></div>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js"></script><script src="assets/js/hero-slideshow.js"></script>
 </body></html>

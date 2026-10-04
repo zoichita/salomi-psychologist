@@ -1,0 +1,7 @@
+.hero--slideshow { background: #203328; overflow: hidden; }
+.hero__slides { position: absolute; inset: 0; z-index: -2; }
+.hero__slide { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; opacity: 0; transition: opacity .85s ease-in-out; }
+.hero__slide.is-active { opacity: 1; }
+.hero--slideshow .hero__shade { z-index: -1; }
+@media (max-width: 760px) { .hero__slide--children-detail { object-position: 39% 50%; } }
+@media (prefers-reduced-motion: reduce) { .hero__slide { transition: none; } }
